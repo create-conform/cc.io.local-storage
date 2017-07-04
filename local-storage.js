@@ -221,7 +221,7 @@
                 reject(new Error(io.ERROR_FILE_NOT_FOUND, ""));
             });
         };
-        this.LocalStorageStream.prototype = new io.Stream();
+        this.LocalStorageStream.prototype = io.Stream;
 
         this.LocalStorageVolume = function(path) {
             this.err = [];
@@ -249,7 +249,7 @@
 
             this.events = new event.Emitter(this);
         };
-        this.LocalStorageVolume.prototype = new io.Volume();
+        this.LocalStorageVolume.prototype = io.Volume;
 
         this.uri = {};
         this.uri.parse = function(uri) {
@@ -265,6 +265,9 @@
             }
             else if (uri && (typeof uri.scheme == "undefined" || typeof uri.path == "undefined")) {
                 uri = null;
+            }
+            if (!uri) {
+                throw new Error(io.ERROR_URI_PARSE, "");
             }
             return self.LocalStorageStream.open(uri.path, opt_access);
         };
@@ -336,7 +339,7 @@
         });
 
         // register root
-        io.Volume.register(new self.LocalStorageVolume("/"));
+        io.volumes.register(new self.LocalStorageVolume("/"));
     }
 
     var singleton;
