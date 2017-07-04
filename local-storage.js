@@ -26,7 +26,7 @@
         }
 
         if (typeof localStorage === "undefined") {
-            throw "The runtime does not support local storage.";
+            return "The runtime does not support local storage.";
         }
 
         //
