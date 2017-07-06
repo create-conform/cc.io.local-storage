@@ -198,7 +198,7 @@
                 });
             };
         };
-        this.LocalStorageStream.open = function(uri, opt_access) {
+        this.LocalStorageStream.open = function(uri, opt_access, opt_create) {
             return new Promise(function(resolve, reject) {
                 var buffer;
                 var data = getItem(uri.toString());
@@ -243,8 +243,8 @@
                 return new Promise(function(resolve, refuse) { refuse("Not implemented"); }); //TODO - To Implement
             };
 
-            this.open = function(path, opt_access) {
-                return self.uri.open(path, opt_access);
+            this.open = function(path, opt_access, opt_create) {
+                return self.uri.open(path, opt_access, opt_create);
             };
 
             this.events = new event.Emitter(this);
@@ -259,7 +259,7 @@
                 }
             }
         };
-        this.uri.open = function(uri, opt_access) {
+        this.uri.open = function(uri, opt_access, opt_create) {
             if (uri && type.isString(uri)) {
                 uri = self.uri.parse(uri);
             }
@@ -269,7 +269,7 @@
             if (!uri) {
                 throw new Error(io.ERROR_URI_PARSE, "");
             }
-            return self.LocalStorageStream.open(uri.path, opt_access);
+            return self.LocalStorageStream.open(uri.path, opt_access, opt_create);
         };
         this.uri.exists = function(uri) {
             return new Promise(function(resolve, refuse) {
