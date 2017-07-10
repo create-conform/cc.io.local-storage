@@ -241,10 +241,27 @@
             var deviceId = "NOT IMPLEMENTED";
             this.localId = ""; //crypt.guid(crypt.md5(this.name + "/" + this.description + "/" + deviceId)); //TODO - deviceId from host library, but that would cause circular dependency
             
-            this.query = function(path) {
-                // key
+            this.query = function(uri) {  
+                return new Promise(function(resolve, refuse) { 
+                    if (uri && type.isString(uri)) {
+                        uri = self.uri.parse(uri);
+                    }
+                    else if (uri && (typeof uri.scheme == "undefined" || typeof uri.path == "undefined")) {
+                        uri = null;
+                    }
 
-                return new Promise(function(resolve, refuse) { refuse("Not implemented"); }); //TODO - To Implement
+                    if (!uri || uri.scheme != PROTOCOL_LOCAL_STORAGE) {
+                        reject("Invalid scheme.");
+                        return;
+                    }
+                    var items = [];
+                    for (var key in localStorage) {
+                        if (key.indexOf(uri) == 0) {
+                            items.push(io.URI.parse(key));
+                        }
+                    }
+                    resolve(items);
+                });
             };
 
             this.open = function(path, opt_access, opt_create) {
@@ -317,6 +334,9 @@
             });
 
         };
+        this.uri.query = function(uri) {
+            return volume.query(uri);
+        };
         this.uri.toString = function(uri, opt_format) {
             if (uri && type.isString(uri)) {
                 uri = self.uri.parse(uri);
@@ -343,7 +363,8 @@
         });
 
         // register root
-        io.volumes.register(new self.LocalStorageVolume("/"));
+        var volume = new self.LocalStorageVolume("/");
+        io.volumes.register(volume);
     }
 
     var singleton;
