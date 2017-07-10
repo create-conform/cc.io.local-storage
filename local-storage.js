@@ -39,13 +39,13 @@
         // private functions
         //
         function getItem(path) {
-            return localStorage.getItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + path);
+            return localStorage.getItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + (path.indexOf("/") == 0? path.substr(1) : path));
         }
         function setItem(path, value) {
-            return localStorage.setItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + path, value);
+            return localStorage.setItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + (path.indexOf("/") == 0? path.substr(1) : path), value);
         }
         function removeItem(path) {
-            return localStorage.removeItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + path);
+            return localStorage.removeItem(self.PROTOCOL_LOCAL_STORAGE + ":///" + (path.indexOf("/") == 0? path.substr(1) : path));
         }
 
         //
