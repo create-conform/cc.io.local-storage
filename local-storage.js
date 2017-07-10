@@ -254,9 +254,15 @@
                         reject("Invalid scheme.");
                         return;
                     }
+                    var dir = uri.toString();
+                    var lastIdx = dir.lastIndexOf("/");
+                    if (lastIdx != dir.length - 1) {
+                        dir = dir.substr(0, lastIdx + 1);
+                    }
+
                     var items = [];
                     for (var key in localStorage) {
-                        if (key.indexOf(uri) == 0) {
+                        if (key.indexOf(dir) == 0 && key.substr(dir.length).indexOf("/") == -1) {
                             items.push(io.URI.parse(key));
                         }
                     }
