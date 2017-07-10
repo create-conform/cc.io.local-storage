@@ -250,7 +250,7 @@
                         uri = null;
                     }
 
-                    if (!uri || uri.scheme != PROTOCOL_LOCAL_STORAGE) {
+                    if (!uri || uri.scheme != self.PROTOCOL_LOCAL_STORAGE) {
                         reject("Invalid scheme.");
                         return;
                     }
