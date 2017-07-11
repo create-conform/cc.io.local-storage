@@ -187,7 +187,7 @@
                     }
                 });
             };
-            this.close = function ()
+            this.close = function (remove)
             {
                 return new Promise(function(resolve, refuse) {
                     if (closed) {
@@ -197,6 +197,10 @@
 
                     buffer = null;
                     closed = true;
+
+                    if (remove) {
+                        removeItem(key);
+                    }
 
                     resolve();
                 });

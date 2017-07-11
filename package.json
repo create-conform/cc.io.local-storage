@@ -1,6 +1,6 @@
 {
   "name": "cc.io.local-storage",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "title": "IO Local Storage Module",
   "description": "IO module that implements local storage protocol support.",
   "license": "Apache-2.0",
