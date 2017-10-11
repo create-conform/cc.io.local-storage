@@ -1,13 +1,15 @@
 {
   "name": "cc.io.local-storage",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "title": "IO Local Storage Module",
   "description": "IO module that implements local storage protocol support.",
   "license": "Apache-2.0",
-  "main": "local-storage.js",
-  "pkxDependencies": [
-    "cc.event.0.1",
-    "cc.type.0.1",
-    "cc.io.0.1"
-  ]
+  "pkx" : {
+    "main": "local-storage.js",
+    "dependencies": [
+      "cc.event.0.2",
+      "cc.type.0.2",
+      "cc.io.0.2"
+    ]
+  }
 }
